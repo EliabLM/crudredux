@@ -1,4 +1,9 @@
 import { Switch } from 'react-router';
+import {
+	AGREGAR_PRODUCTO,
+	AGREGAR_PRODUCTO_ERROR,
+	AGREGAR_PRODUCTO_EXITO,
+} from '../types';
 
 // cada reducer tiene su propio state
 const initialState = {
