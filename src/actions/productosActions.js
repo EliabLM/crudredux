@@ -1,3 +1,4 @@
+// import { bindActionCreators } from 'redux';
 import {
 	AGREGAR_PRODUCTO,
 	AGREGAR_PRODUCTO_ERROR,
@@ -29,4 +30,7 @@ const agregarProductoExito = (producto) => ({
 });
 
 // si hubo un error
-const agregarProductoError = () => ({});
+const agregarProductoError = (estado) => ({
+	type: AGREGAR_PRODUCTO_ERROR,
+	payload: estado,
+});
