@@ -6,15 +6,18 @@ import {
 	COMENZAR_DESCARGA_PRODUCTOS,
 	DESCARGA_PRODUCTOS_ERROR,
 	DESCARGA_PRODUCTOS_EXITO,
+	OBTENER_PRODUCTO_ELIMINAR,
+	PRODUCTO_ELIMINADO_ERROR,
+	PRODUCTO_ELIMINADO_EXITO,
 } from '../types';
 // import clienteAxios from '../config/axios';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import productosReducer from '../reducers/productosReducer';
+// import productosReducer from '../reducers/productosReducer';
 
-// ======================
-// Crear nuevos productos
-// ======================
+// ============================
+// == Crear nuevos productos ==
+// ============================
 export function crearNuevoProductoAction(producto) {
 	return async (dispatch) => {
 		dispatch(agregarProducto());
@@ -27,7 +30,7 @@ export function crearNuevoProductoAction(producto) {
 				url: 'http://localhost:4000/productos',
 				data: producto,
 			});
-			console.log(producto);
+			// console.log(producto);
 
 			// si todo sale bien, actualizar el state
 			dispatch(agregarProductoExito(producto));
@@ -42,7 +45,7 @@ export function crearNuevoProductoAction(producto) {
 			// Alerta de error
 			Swal.fire({
 				icon: 'error',
-				title: 'Hubo un error',
+				title: 'Error',
 				text: 'Hubo un error, intenta de nuevo',
 			});
 		}
@@ -66,9 +69,9 @@ const agregarProductoError = (estado) => ({
 	payload: estado,
 });
 
-// ======================================================
-// funcion que descarga los productos de la base de datos
-// ======================================================
+// ============================================================
+// == funcion que descarga los productos de la base de datos ==
+// ============================================================
 export function obtenerProductosAction() {
 	return async (dispatch) => {
 		dispatch(descargarProductos());
@@ -99,5 +102,47 @@ const descargaProductosExitosa = (productos) => ({
 
 const descargaProductosError = () => ({
 	type: DESCARGA_PRODUCTOS_ERROR,
+	payload: true,
+});
+
+// ======================================
+// == Selecciona y elimina el producto ==
+// ======================================
+export function borrarProductoAction(id) {
+	return async (dispatch) => {
+		dispatch(obtenerProductoEliminar(id));
+
+		try {
+			await axios({
+				method: 'delete',
+				url: `http://localhost:4000/productos/${id}`,
+				responseType: 'stream',
+			});
+			dispatch(eliminarProductoExito());
+
+			// Si se eliminar, mostrar alerta
+			Swal.fire(
+				'Eliminado!',
+				'El producto se eliminó correctamente.',
+				'success'
+			);
+		} catch (error) {
+			console.log(error);
+			dispatch(eliminarProductoError());
+		}
+	};
+}
+
+const obtenerProductoEliminar = (id) => ({
+	type: OBTENER_PRODUCTO_ELIMINAR,
+	payload: id,
+});
+
+const eliminarProductoExito = () => ({
+	type: PRODUCTO_ELIMINADO_EXITO,
+});
+
+const eliminarProductoError = () => ({
+	type: PRODUCTO_ELIMINADO_ERROR,
 	payload: true,
 });
