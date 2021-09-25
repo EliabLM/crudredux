@@ -40,6 +40,11 @@
       "nombre": "cola",
       "precio": 8000,
       "id": 9
+    },
+    {
+      "nombre": "costillas",
+      "precio": 4500,
+      "id": 10
     }
   ]
 }
