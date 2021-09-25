@@ -17,7 +17,7 @@ export function crearNuevoProductoAction(producto) {
 			// await clienteAxios.post('/productos', producto);
 			await axios({
 				method: 'post',
-				url: 'http://localhost:4000/productos',
+				url: 'http://localhost:4000/productos/hola',
 				data: producto,
 			});
 			console.log(producto);
