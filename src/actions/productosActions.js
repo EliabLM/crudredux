@@ -9,6 +9,10 @@ import {
 	OBTENER_PRODUCTO_ELIMINAR,
 	PRODUCTO_ELIMINADO_ERROR,
 	PRODUCTO_ELIMINADO_EXITO,
+	OBTENER_PRODUCTO_EDITAR,
+	COMENZAR_EDICION_PRODUCTO,
+	PRODUCTO_EDITADO_ERROR,
+	PRODUCTO_EDITADO_EXITO,
 } from '../types';
 // import clienteAxios from '../config/axios';
 import axios from 'axios';
@@ -80,7 +84,6 @@ export function obtenerProductosAction() {
 			const respuesta = await axios({
 				method: 'get',
 				url: 'http://localhost:4000/productos',
-				responseType: 'stream',
 			});
 			dispatch(descargaProductosExitosa(respuesta.data));
 		} catch (error) {
@@ -116,7 +119,6 @@ export function borrarProductoAction(id) {
 			await axios({
 				method: 'delete',
 				url: `http://localhost:4000/productos/${id}`,
-				responseType: 'stream',
 			});
 			dispatch(eliminarProductoExito());
 
@@ -144,5 +146,55 @@ const eliminarProductoExito = () => ({
 
 const eliminarProductoError = () => ({
 	type: PRODUCTO_ELIMINADO_ERROR,
+	payload: true,
+});
+
+// =====================================
+// == Selecciona el producto a editar ==
+// =====================================
+export function obtenerProductoEditar(producto) {
+	return (dispatch) => {
+		dispatch(obtenerProductoEditarAction(producto));
+	};
+}
+
+const obtenerProductoEditarAction = (producto) => ({
+	type: OBTENER_PRODUCTO_EDITAR,
+	payload: producto,
+});
+
+// ===============================================
+// == Edita un registro en la api y en el state ==
+// ===============================================
+export function editarProductoAction(producto) {
+	return async (dispatch) => {
+		dispatch(editarProducto());
+
+		try {
+			await axios({
+				method: 'put',
+				url: `http://localhost:4000/productos/${producto.id}`,
+				data: producto,
+			});
+			dispatch(editarProductoExito(producto));
+		} catch (error) {
+			console.log(error);
+			dispatch(editarProductoError());
+		}
+	};
+}
+
+const editarProducto = () => ({
+	type: COMENZAR_EDICION_PRODUCTO,
+	payload: true,
+});
+
+const editarProductoExito = (producto) => ({
+	type: PRODUCTO_EDITADO_EXITO,
+	payload: producto,
+});
+
+const editarProductoError = () => ({
+	type: PRODUCTO_EDITADO_ERROR,
 	payload: true,
 });

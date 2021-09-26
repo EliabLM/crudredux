@@ -1,39 +1,54 @@
 {
   "productos": [
     {
-      "id": 2,
-      "nombre": "Jugo de Naranja",
-      "precio": "100"
+      "nombre": "Punta de anca",
+      "precio": 16000,
+      "id": 1
     },
     {
-      "nombre": "Jugo de Naranja",
-      "precio": "300",
+      "nombre": "Cola",
+      "precio": 10000,
+      "id": 2
+    },
+    {
+      "nombre": "Costilla",
+      "precio": 9000,
       "id": 3
     },
     {
-      "nombre": "Jugo de Fresa",
-      "precio": "200",
+      "nombre": "Sobrebarriga",
+      "precio": 13000,
+      "id": 4
+    },
+    {
+      "nombre": "Lomo fino",
+      "precio": 24000,
       "id": 5
     },
     {
-      "nombre": "Punta de anca",
-      "precio": 10500,
+      "nombre": "Lomo ancho",
+      "precio": 17000,
+      "id": 6
+    },
+    {
+      "nombre": "Centro de pierna",
+      "precio": 14500,
+      "id": 7
+    },
+    {
+      "nombre": "Lomo de brazo",
+      "precio": 14000,
       "id": 8
     },
     {
-      "nombre": "cola",
-      "precio": 8000,
+      "nombre": "Pecho",
+      "precio": 20000,
       "id": 9
     },
     {
-      "nombre": "costillas",
-      "precio": 4500,
+      "nombre": "Paletero externo",
+      "precio": 14000,
       "id": 10
-    },
-    {
-      "nombre": "Punta gorda",
-      "precio": 4500,
-      "id": 11
     }
   ]
 }

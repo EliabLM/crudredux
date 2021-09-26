@@ -4,9 +4,13 @@ import {
 	AGREGAR_PRODUCTO_ERROR,
 	AGREGAR_PRODUCTO_EXITO,
 	COMENZAR_DESCARGA_PRODUCTOS,
+	COMENZAR_EDICION_PRODUCTO,
 	DESCARGA_PRODUCTOS_ERROR,
 	DESCARGA_PRODUCTOS_EXITO,
+	OBTENER_PRODUCTO_EDITAR,
 	OBTENER_PRODUCTO_ELIMINAR,
+	PRODUCTO_EDITADO_ERROR,
+	PRODUCTO_EDITADO_EXITO,
 	PRODUCTO_ELIMINADO_ERROR,
 	PRODUCTO_ELIMINADO_EXITO,
 } from '../types';
@@ -17,12 +21,14 @@ const initialState = {
 	error: null,
 	loading: false,
 	productoeliminar: null,
+	productoeditar: null,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case COMENZAR_DESCARGA_PRODUCTOS:
+		case COMENZAR_EDICION_PRODUCTO:
 		case AGREGAR_PRODUCTO:
 			return {
 				...state,
@@ -37,6 +43,7 @@ export default function (state = initialState, action) {
 		case AGREGAR_PRODUCTO_ERROR:
 		case DESCARGA_PRODUCTOS_ERROR:
 		case PRODUCTO_ELIMINADO_ERROR:
+		case PRODUCTO_EDITADO_ERROR:
 			return {
 				...state,
 				loading: false,
@@ -61,6 +68,21 @@ export default function (state = initialState, action) {
 					(producto) => producto.id !== state.productoeliminar
 				),
 				productoeliminar: null,
+			};
+		case OBTENER_PRODUCTO_EDITAR:
+			return {
+				...state,
+				productoeditar: action.payload,
+			};
+		case PRODUCTO_EDITADO_EXITO:
+			return {
+				...state,
+				productoeditar: null,
+				productos: state.productos.map((producto) =>
+					producto.id === action.payload.id
+						? (producto = action.payload)
+						: producto
+				),
 			};
 
 		default:
