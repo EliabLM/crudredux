@@ -15,12 +15,14 @@ function EditarProducto() {
 
 	// producto a editar
 	const productoeditar = useSelector((state) => state.productos.productoeditar);
-	// if (!producto) return null;
 
 	// Llena el state automaticamente
 	useEffect(() => {
 		guardarProducto(productoeditar);
 	}, [productoeditar]);
+
+	// Evita el error al recargar la pagina mientras se esta editando un producto
+	if (!productoeditar) return null;
 
 	// Leer los datos del formulario
 	const onChangeFormulario = (e) => {
