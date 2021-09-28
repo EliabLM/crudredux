@@ -11,7 +11,7 @@ function Productos() {
 		// consultar la api
 		const cargarProductos = () => dispatch(obtenerProductosAction());
 		cargarProductos();
-	}, []);
+	}, [dispatch]);
 
 	// obtener el state
 	const productos = useSelector((state) => state.productos.productos);
