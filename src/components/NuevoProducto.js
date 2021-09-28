@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Actions de REDUX
 import { crearNuevoProductoAction } from '../actions/productosActions';
+import { mostrarAlerta } from '../actions/alertaActions';
 
 function NuevoProducto({ history }) {
 	// state del componente
@@ -26,7 +27,13 @@ function NuevoProducto({ history }) {
 
 		// validar formulario
 		if (nombre.trim() === '' || precio <= 0) {
-			alert('Agrega algo que funcione');
+			const alerta = {
+				msg: 'Ambos campos son obligatorios',
+				classes: 'alert alert-danger text-center text-uppercase p3',
+			};
+
+			dispatch(mostrarAlerta(alerta));
+			return;
 		}
 
 		// revisar que no haya errores
